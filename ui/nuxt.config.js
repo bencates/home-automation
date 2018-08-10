@@ -36,6 +36,14 @@ module.exports = {
    ** Build configuration
    */
   build: {
+
+    /*
+     ** Third-party dependencies
+     */
+    vendor: [
+      '~~/deps/phoenix/priv/static/phoenix.js'
+    ],
+
     /*
      ** Run ESLint on save
      */
