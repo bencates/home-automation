@@ -3,9 +3,15 @@
 /db
 /deps
 /*.ez
+/node_modules
+/.nuxt
+/priv/static
 
 # Generated on crash by the VM
 erl_crash.dump
+
+# Generated on crash in Node
+npm-debug.log
 
 # Files matching config/*.secret.exs pattern contain sensitive
 # data and you should not commit them into version control.
