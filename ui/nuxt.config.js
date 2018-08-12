@@ -26,6 +26,13 @@ module.exports = {
   },
 
   /*
+   ** Runtime configuration for the app
+   */
+  env: {
+    WS_SERVER: 'ws://localhost:4000'
+  },
+
+  /*
    ** Customize the progress bar color
    */
   loading: {
@@ -36,13 +43,6 @@ module.exports = {
    ** Build configuration
    */
   build: {
-
-    /*
-     ** Third-party dependencies
-     */
-    vendor: [
-      '~~/deps/phoenix/priv/static/phoenix.js'
-    ],
 
     /*
      ** Run ESLint on save
@@ -61,6 +61,10 @@ module.exports = {
       }
     }
   },
+
+  plugins: [
+    '~/plugins/phoenix'
+  ],
 
   /*
    ** Nuxt root directory
