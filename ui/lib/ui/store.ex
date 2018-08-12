@@ -1,5 +1,5 @@
 defmodule Home.Store do
-  import HomeWeb.Endpoint, only: [broadcast!: 3]
+  alias HomeWeb.Endpoint
 
   def broadcast_commit(mutation, payload) when is_atom(mutation),
     do: payload |> Map.put(:type, mutation) |> broadcast_commit
@@ -8,7 +8,7 @@ defmodule Home.Store do
     do: broadcast_commit(%{type: mutation})
 
   def broadcast_commit(mutation) do
-    broadcast!("store", "commit", mutation)
+    Endpoint.broadcast!("store", "commit", mutation)
   end
 
   def broadcast_dispatch(action, payload) when is_atom(action),
@@ -18,6 +18,6 @@ defmodule Home.Store do
     do: broadcast_dispatch(%{type: action})
 
   def broadcast_dispatch(action) do
-    broadcast!("store", "dispatch", action)
+    Endpoint.broadcast!("store", "dispatch", action)
   end
 end
