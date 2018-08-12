@@ -62,10 +62,6 @@ module.exports = {
     }
   },
 
-  plugins: [
-    '~/plugins/phoenix'
-  ],
-
   /*
    ** Nuxt root directory
    */
