@@ -1,23 +1,37 @@
 defmodule Home.Store do
   alias HomeWeb.Endpoint
 
-  def broadcast_commit(mutation, payload) when is_atom(mutation),
-    do: payload |> Map.put(:type, mutation) |> broadcast_commit
+  def commit(type, payload \\ %{})
 
-  def broadcast_commit(mutation) when is_atom(mutation),
-    do: broadcast_commit(%{type: mutation})
+  def commit(type, payload) when is_binary(type) do
+    try do
+      commit(String.to_existing_atom(type), payload)
+    rescue
+      ArgumentError -> {:error, "mutation not found"}
+    end
+  end
 
-  def broadcast_commit(mutation) do
+  def commit(_type, _payload), do: {:error, "mutation not found"}
+
+  def dispatch(type, payload \\ %{})
+
+  def dispatch(type, payload) when is_binary(type) do
+    try do
+      dispatch(String.to_existing_atom(type), payload)
+    rescue
+      ArgumentError -> {:error, "mutation not found"}
+    end
+  end
+
+  def dispatch(_type, _payload), do: {:error, "action not found"}
+
+  def broadcast_commit(type, payload \\ %{}) do
+    mutation = Map.put(payload, :type, type)
     Endpoint.broadcast!("store", "commit", mutation)
   end
 
-  def broadcast_dispatch(action, payload) when is_atom(action),
-    do: payload |> Map.put(:type, action) |> broadcast_dispatch
-
-  def broadcast_dispatch(action) when is_atom(action),
-    do: broadcast_dispatch(%{type: action})
-
-  def broadcast_dispatch(action) do
+  def broadcast_dispatch(type, payload \\ %{}) do
+    action = Map.put(payload, :type, type)
     Endpoint.broadcast!("store", "dispatch", action)
   end
 end

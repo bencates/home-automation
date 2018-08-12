@@ -1,27 +1,18 @@
 defmodule HomeWeb.StoreChannel do
   use HomeWeb, :channel
-  require Logger
+  alias Home.Store
 
   def join("store", _payload, socket), do: {:ok, socket}
 
   def handle_in("server_commit", mutation, socket) do
-    Logger.debug(fn ->
-      "Committing mutation:\n#{inspect(mutation)}\n"
-    end)
-
-    # FIXME: commit mutation
+    Store.commit(mutation["type"], mutation)
 
     {:noreply, socket}
   end
 
   def handle_in("server_dispatch", action, socket) do
-    Logger.debug(fn ->
-      "Performing action:\n#{inspect(action)}\n"
-    end)
+    result = Store.dispatch(action["type"], action)
 
-    # FIXME: perform action
-    result = %{FIXME: true}
-
-    {:reply, {:ok, result}, socket}
+    {:reply, result, socket}
   end
 end
