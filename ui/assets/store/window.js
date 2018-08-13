@@ -1,11 +1,13 @@
 
 export function state () {
-  {
-    windows: [{
-      id: 'den_window',
-      name: 'Den Window',
-      position: 0
-    }]
+  return {
+    windows: {
+      den: {
+        id: 'den',
+        name: 'Den Window',
+        position: 0
+      }
+    }
   }
 }
 
