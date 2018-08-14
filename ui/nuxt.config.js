@@ -39,6 +39,10 @@ module.exports = {
     color: '#3B8070'
   },
 
+  plugins: [
+    '~/plugins/fontawesome'
+  ],
+
   /*
    ** Build configuration
    */
