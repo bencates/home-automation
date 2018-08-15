@@ -1,4 +1,5 @@
 import { Socket } from '~~/deps/phoenix/assets/js/phoenix.js'
+import { camelizeKeys, decamelize, decamelizeKeys } from 'humps'
 
 export default function phoenix(store) {
   const socket = new Socket(`${process.env.WS_SERVER}/socket`, { params: { userToken: "123" } })
@@ -14,7 +15,7 @@ export default function phoenix(store) {
     .receive("ok", ({messages}) => {
       store.commit('socketConnect')
 
-      console.log("catching up", messages) 
+      console.log("catching up", messages)
     })
     .receive("error", ({reason}) => console.log("failed join", reason) )
     .receive("timeout", () => console.log("Networking issue. Still waiting...") )
@@ -25,28 +26,18 @@ export default function phoenix(store) {
     $socket: socket,
     $channel: channel,
 
-    commit (type, payload = {}) {
-      let mutation
-      if (type !== null && typeof type === 'object' && type.type) {
-        mutation = type
-      } else {
-        mutation = { type, ...payload }
-      }
-
-      channel.push("server_commit", mutation)
-    },
-
     async dispatch (type, payload = {}) {
       let action
       if (type !== null && typeof type === 'object' && type.type) {
-        action = type
+        action = decamelizeKeys(type)
       } else {
-        action = { type, ...payload }
+        action = { type, ...decamelizeKeys(payload) }
       }
+      action.type = decamelize(action.type)
 
       return await new Promise((resolve, reject) => {
-        channel.push("server_dispatch", action)
-          .receive("ok", resolve)
+        channel.push("dispatch", action)
+          .receive("ok", response => resolve(camelizeKeys(response)))
           .receive("timeout", () => reject(new Error("timeout")))
       })
     }

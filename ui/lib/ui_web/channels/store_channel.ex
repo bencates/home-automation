@@ -4,15 +4,19 @@ defmodule HomeWeb.StoreChannel do
 
   def join("store", _payload, socket), do: {:ok, socket}
 
-  def handle_in("server_commit", mutation, socket) do
-    Store.commit(mutation["type"], mutation)
-
-    {:noreply, socket}
-  end
-
-  def handle_in("server_dispatch", action, socket) do
-    result = Store.dispatch(action["type"], action)
+  def handle_in("dispatch", action, socket) do
+    type = namespaced(action["type"])
+    result = Store.dispatch(type, action)
 
     {:reply, result, socket}
+  end
+
+  defp namespaced(name) do
+    [namespace, type] =
+      name
+      |> String.split("/")
+      |> Enum.map(&String.to_existing_atom/1)
+
+    {namespace, type}
   end
 end
