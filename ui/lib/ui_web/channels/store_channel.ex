@@ -2,21 +2,20 @@ defmodule HomeWeb.StoreChannel do
   use HomeWeb, :channel
   alias Home.Store
 
-  def join("store", _payload, socket), do: {:ok, socket}
-
-  def handle_in("dispatch", action, socket) do
-    type = namespaced(action["type"])
-    result = Store.dispatch(type, action)
-
-    {:reply, result, socket}
+  def join("store", _payload, socket) do
+    {:ok, Store.state(), socket}
   end
 
-  defp namespaced(name) do
+  def handle_in("dispatch", action, socket) do
     [namespace, type] =
-      name
+      action["type"]
       |> String.split("/")
       |> Enum.map(&String.to_existing_atom/1)
 
-    {namespace, type}
+    payload = Map.delete(action, "type")
+
+    result = Store.dispatch({namespace, type}, payload)
+
+    {:reply, result, socket}
   end
 end

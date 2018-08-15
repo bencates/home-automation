@@ -53,6 +53,13 @@ defmodule Home.Store do
     end
   end
 
+  def state do
+    Enum.map(@stores, fn {namespace, _} ->
+      {namespace, state(namespace)}
+    end)
+    |> Enum.into(%{socket_connected: true})
+  end
+
   def state(namespace) do
     {:ok, store} = :dets.open_file(:store, [])
 
@@ -70,8 +77,18 @@ defmodule Home.Store do
   defp set_state(namespace, state) do
     {:ok, store} = :dets.open_file(:store, [])
 
+    old_state =
+      case :dets.lookup(store, namespace) do
+        [] -> @stores[namespace].state()
+        [{^namespace, state}] -> state
+      end
+
     :dets.insert(store, {namespace, state})
 
     :dets.close(store)
+
+    patch = MapDiff.diff(%{namespace => old_state}, %{namespace => state})
+
+    Endpoint.broadcast!("store", "patch_state", patch)
   end
 end
