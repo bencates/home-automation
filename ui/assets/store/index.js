@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import phoenix from '~/plugins/store/phoenix'
 
 export const plugins = [phoenix]
@@ -12,17 +13,10 @@ export const mutations = {
   socketDisconnect: state => state.socketConnected = false,
 
   patchState (state, patch) {
-    console.log("patching state", patch)
-    console.log("state", patch)
-
     function deepPatch (state, patch, key) {
-      console.log("deep patching state", state, patch, key)
       switch (patch.changed) {
-        case 'equal':
-          return state
-
         case 'added':
-          state[key] = patch.value
+          Vue.set(state, key, patch.value)
           return state
 
         case 'removed':
@@ -30,7 +24,7 @@ export const mutations = {
           return state
 
         case 'primitive_change':
-          return patch.added
+          return patch.value
 
         case 'map_change':
           Object.keys(patch.value).forEach(key => {

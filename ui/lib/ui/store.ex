@@ -87,8 +87,29 @@ defmodule Home.Store do
 
     :dets.close(store)
 
-    patch = MapDiff.diff(%{namespace => old_state}, %{namespace => state})
+    patch = prune_patch(MapDiff.diff(%{namespace => old_state}, %{namespace => state}))
 
-    Endpoint.broadcast!("store", "patch_state", patch)
+    if !is_nil(patch) do
+      Endpoint.broadcast!("store", "patch_state", patch)
+    end
+  end
+
+  defp prune_patch(%{changed: :equal}),
+    do: nil
+  defp prune_patch(%{changed: :added, value: value}),
+    do: %{changed: :added, value: value}
+  defp prune_patch(%{changed: :removed}),
+    do: %{changed: :removed}
+  defp prune_patch(%{changed: :primitive_change, added: value}),
+    do: %{changed: :primitive_change, value: value}
+  defp prune_patch(%{changed: :map_change, value: value}) do
+    %{
+      changed: :map_change,
+      value:
+        value
+        |> Enum.map(fn {key, patch} -> {key, prune_patch(patch)} end)
+        |> Enum.reject(fn {_, patch} -> is_nil(patch) end)
+        |> Enum.into(%{})
+    }
   end
 end
