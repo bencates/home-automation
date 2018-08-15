@@ -20,13 +20,13 @@ defmodule Home.Store do
   end
 
   def commit({namespace, type}, payload \\ %{}) do
-    state = get_state(namespace)
+    state = state(namespace)
     {:ok, new_state} = namespaced_call(namespace, Mutations, type, [state, payload])
     set_state(namespace, new_state)
   end
 
   def dispatch({namespace, type}, payload \\ %{}) do
-    state = get_state(namespace)
+    state = state(namespace)
     {:ok, result} = namespaced_call(namespace, Actions, type, [state, payload])
     result
   end
@@ -54,19 +54,7 @@ defmodule Home.Store do
     end
   end
 
-  def broadcast_commit(type, payload \\ %{}) do
-    mutation = Map.put(payload, :type, type)
-    Endpoint.broadcast!("store", "commit", mutation)
-  end
-
-  def broadcast_dispatch(type, payload \\ %{}) do
-    action = Map.put(payload, :type, type)
-    Endpoint.broadcast!("store", "dispatch", action)
-  end
-
-
-
-  defp get_state(namespace) do
+  def state(namespace) do
     {:ok, store} = :dets.open_file(:store, [])
 
     state = case :dets.lookup(store, namespace) do
