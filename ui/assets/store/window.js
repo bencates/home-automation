@@ -3,16 +3,22 @@ export function state () {
   return {
     windows: {
       den: {
-        id: 'den',
         name: 'Den Window',
-        position: 0
+        position: 50
       }
     }
   }
 }
 
+export const mutations = {
+  setWindowPosition (state, { id, position }) {
+    state.windows[id].position = position
+  }
+}
+
 export const actions = {
-  async setWindow (_context, payload) {
-    return await this.$server.dispatch('set_window', payload)
+  async setWindow ({ commit }, payload) {
+    commit('setWindowPosition', payload)
+    // return await this.$server.dispatch('set_window', payload)
   }
 }
