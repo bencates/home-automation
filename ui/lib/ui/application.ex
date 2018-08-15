@@ -9,7 +9,7 @@ defmodule Home.Application do
     # Define workers and child supervisors to be supervised
     children = [
       # Start the endpoint when the application starts
-      supervisor(HomeWeb.Endpoint, []),
+      supervisor(HomeWeb.Endpoint, [])
       # Start your own worker by calling: Home.Worker.start_link(arg1, arg2, arg3)
       # worker(Home.Worker, [arg1, arg2, arg3]),
     ]

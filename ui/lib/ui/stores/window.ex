@@ -13,7 +13,7 @@ defmodule Home.Stores.Window do
   end
 
   defmodule Mutations do
-    def set_window(state, %{ "id" => id, "position" => position }) do
+    def set_window(state, %{"id" => id, "position" => position}) do
       put_in(state, [:windows, String.to_existing_atom(id), :position], position)
     end
   end

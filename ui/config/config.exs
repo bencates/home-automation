@@ -14,8 +14,7 @@ config :ui, HomeWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "wNlXZ8jyA8JLXDpst2uvl/PFz2myOJiHXhsBr2mUQx6S1PiAHp52XW6M3VAp0siX",
   render_errors: [view: HomeWeb.ErrorView, accepts: ~w(json)],
-  pubsub: [name: Home.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Home.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -24,4 +23,4 @@ config :logger, :console,
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"

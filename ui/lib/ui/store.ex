@@ -32,19 +32,18 @@ defmodule Home.Store do
   end
 
   defp namespaced_call(namespace, module_type, function, args) do
-         # Find the base module for the provided namespace
+    # Find the base module for the provided namespace
     with {:ok, base_module} <- Map.fetch(@stores, namespace),
 
-      # Form the namespaced module name
-      module_name <- Module.concat(base_module, module_type),
+         # Form the namespaced module name
+         module_name <- Module.concat(base_module, module_type),
 
-      # Ensure the resulting module name is a real module
-      {:module, module} <- Code.ensure_loaded(module_name),
+         # Ensure the resulting module name is a real module
+         {:module, module} <- Code.ensure_loaded(module_name),
 
-      # Ensure the requested function/arity pair is a real function in the
-      # module
-      true <- function_exported?(module, function, length(args))
-    do
+         # Ensure the requested function/arity pair is a real function in the
+         # module
+         true <- function_exported?(module, function, length(args)) do
       # Call the function in the namespaced module
       {:ok, apply(module, function, args)}
     else
@@ -57,10 +56,11 @@ defmodule Home.Store do
   def state(namespace) do
     {:ok, store} = :dets.open_file(:store, [])
 
-    state = case :dets.lookup(store, namespace) do
-      [] -> @stores[namespace].state()
-      [{^namespace, state}] -> state
-    end
+    state =
+      case :dets.lookup(store, namespace) do
+        [] -> @stores[namespace].state()
+        [{^namespace, state}] -> state
+      end
 
     :dets.close(store)
 
