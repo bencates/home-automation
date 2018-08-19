@@ -1,8 +1,10 @@
 <template>
   <div class="container">
-    <aside class="navbar">
-      <the-navbar />
-    </aside>
+    <button class="show" @click="$refs.theNavbar.show()">
+      <font-awesome-icon icon="bars" />
+    </button>
+
+    <the-navbar ref="theNavbar" />
 
     <main class="content">
       <nuxt/>
@@ -21,34 +23,52 @@
 </script>
 
 <style>
-html {
-  box-sizing: border-box;
-}
+  :root {
+    --wood-dark: hsl(26.47deg, 34%, 19.61%);
+    --wood-medium: hsl(26.13deg, 34.44%, 64.71%);
+    --wood-light: hsl(24.78deg, 74.19%, 87.84%);
 
-*, *:before, *:after {
-  box-sizing: border-box;
-  margin: 0;
-}
+    --font-light: gray(90);
+    --font-dark: gray(12);
 
-div.container {
-  display: flex;
-  flex-direction: row;
+    /* FIXME: real colors */
+    --den-color: blue;
+    --den-accent-color: green;
 
-  min-height: 100vh;
-}
+    --room-color: gray(20);
+    --room-font-color: var(--font-light);
+    --room-accent-color: gray(85);
+  }
 
-aside.navbar {
-  background: #666;
-  color: #333;
+  html {
+    box-sizing: border-box;
 
-  width: 300px;
-}
+    color: var(--font-dark);
+  }
 
-main.content {
-  background: #333;
-  color: #CCC;
+  *, *:before, *:after {
+    box-sizing: border-box;
+    margin: 0;
+  }
 
-  flex: 1 0 auto;
-}
+  div.container {
+    display: flex;
+    flex-direction: row;
+
+    min-height: 100vh;
+  }
+
+  main.content {
+    background: var(--room-color);
+    color: var(--room-font-color);
+
+    flex: 1 0 auto;
+  }
+
+  button.show {
+    position: absolute;
+    background: transparent;
+    color: var(--font-light);
+    border: none;
+  }
 </style>
-

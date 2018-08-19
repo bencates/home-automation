@@ -48,6 +48,20 @@ module.exports = {
    */
   build: {
 
+    postcss: {
+      plugins: {
+        /* postcss-cssnext is deprecated and recommends switching to
+         * postcss-preset-env */
+        'postcss-cssnext': false,
+        'postcss-preset-env': {
+          stage: 2,
+          features: {
+            'nesting-rules': true
+          }
+        }
+      }
+    },
+
     /*
      ** Run ESLint on save
      */
