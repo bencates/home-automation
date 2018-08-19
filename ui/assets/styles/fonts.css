@@ -1,0 +1,29 @@
+@font-face {
+  font-family: 'Fanwood';
+  font-style: normal;
+  src: url('~/assets/fonts/fanwood.woff');
+}
+
+@font-face {
+  font-family: 'Fanwood';
+  font-style: italic;
+  src: url('~/assets/fonts/fanwood-italic.woff');
+}
+
+@font-face {
+  font-family: 'Junction';
+  font-weight: 100 300;
+  src: url('~/assets/fonts/junction-light.woff');
+}
+
+@font-face {
+  font-family: 'Junction';
+  font-weight: 400 600;
+  src: url('~/assets/fonts/junction-regular.woff');
+}
+
+@font-face {
+  font-family: 'Junction';
+  font-weight: 700 900;
+  src: url('~/assets/fonts/junction-bold.woff');
+}

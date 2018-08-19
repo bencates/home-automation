@@ -16,41 +16,11 @@
   import TheNavbar from '~/components/the-navbar'
 
   export default {
-    components: {
-      TheNavbar
-    }
+    components: { TheNavbar }
   }
 </script>
 
 <style>
-  :root {
-    --wood-dark: hsl(26.47deg, 34%, 19.61%);
-    --wood-medium: hsl(26.13deg, 34.44%, 64.71%);
-    --wood-light: hsl(24.78deg, 74.19%, 87.84%);
-
-    --font-light: gray(90);
-    --font-dark: gray(12);
-
-    /* FIXME: real colors */
-    --den-color: blue;
-    --den-accent-color: green;
-
-    --room-color: gray(20);
-    --room-font-color: var(--font-light);
-    --room-accent-color: gray(85);
-  }
-
-  html {
-    box-sizing: border-box;
-
-    color: var(--font-dark);
-  }
-
-  *, *:before, *:after {
-    box-sizing: border-box;
-    margin: 0;
-  }
-
   div.container {
     display: flex;
     flex-direction: row;

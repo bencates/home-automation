@@ -1,19 +1,26 @@
 <template>
   <nav :class="{ visible, navbar: true }">
-    <button class="hide" @click="hide">
-      <font-awesome-icon icon="arrow-left" />
-    </button>
 
-    <ul>
-      <li>
-        <nuxt-link class="category" to="/window">Windows</nuxt-link>
-        <ul>
-          <li v-for="(window, id) in windows" :key="id">
-            <nuxt-link class="device" :to="`/window/${id}`">{{ window.name }}</nuxt-link>
-          </li>
-        </ul>
-      </li>
-    </ul>
+    <section class="controls">
+      <nuxt-link class="home" to="/">
+        <font-awesome-icon icon="home" />
+      </nuxt-link>
+
+      <button class="hide" @click="hide">
+        <font-awesome-icon icon="arrow-left" />
+      </button>
+    </section>
+
+    <ul><li class="category">
+      <h2>Windows</h2>
+
+      <ul><li v-for="(window, id) in windows" class="device" :key="id">
+        <nuxt-link class="device" :to="`/window/${id}`">
+          {{ window.name }}
+        </nuxt-link>
+      </li></ul>
+    </li></ul>
+
   </nav>
 </template>
 
@@ -44,6 +51,7 @@
 
     width: 70vw;
     height: 100vh;
+    z-index: 1;
 
     transform: translateX(-70vw);
     transition: transform 0.6s ease-in;
@@ -54,43 +62,64 @@
     transition: transform 0.6s ease-out;
   }
 
-  button.hide {
-    background: transparent;
+
+
+  .controls {
     color: var(--font-light);
-    border: none;
     width: 100%;
     font-size: 1.4rem;
     text-align: left;
-    padding: 0.3rem 0.6rem;
+    padding: 0.3rem;
+
+    display: flex;
+    align-items: center;
   }
+
+  .controls :matches(button, a) {
+    background: inherit;
+    color: inherit;
+    font-size: inherit;
+    border: none;
+    display: inline block;
+    margin: 0 0.3rem;
+    padding: 0;
+    text-align: right;
+  }
+
+  .controls .hide {
+    flex-grow: 1;
+  }
+
+
 
   ul {
     list-style: none;
     padding: 0;
   }
 
-  a.category {
+  li {
+    padding: 0 0.6rem;
+  }
+
+  .category {
+    color: var(--font-light);
+  }
+
+  .category h2 {
     display: block;
     background: var(--wood-dark);
     color: var(--font-light);
     text-decoration: none;
 
     font-size: 1.6rem;
-    padding: 0.8rem;
-
-    border: 1px solid black;
+    padding: 0;
   }
 
   a.device {
     display: block;
-    background: var(--wood-medium);
     color: var(--room-accent-color);
     text-decoration: none;
 
     font-size: 1.4rem;
-    padding: 0.7rem 1.4rem;
-
-    border: 1px solid black;
-    border-top: none;
   }
 </style>

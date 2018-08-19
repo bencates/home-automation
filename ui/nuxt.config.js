@@ -80,6 +80,12 @@ module.exports = {
     }
   },
 
+  css: [
+    '@/styles/fonts.css',
+    '@/styles/variables.css',
+    '@/styles/global.css',
+  ],
+
   /*
    ** Nuxt root directory
    */

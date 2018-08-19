@@ -1,0 +1,14 @@
+html {
+  box-sizing: border-box;
+
+  color: var(--font-dark);
+
+  font-family: var(--ui-font);
+  font-size: var(--rem-size);
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}

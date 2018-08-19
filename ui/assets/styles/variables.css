@@ -1,0 +1,23 @@
+:root {
+  --wood-dark: hsl(26.47deg, 34%, 19.61%);
+  --wood-medium: hsl(26.13deg, 34.44%, 64.71%);
+  --wood-light: hsl(24.78deg, 74.19%, 87.84%);
+
+  --charcoal: hsl(204deg, 18.8%, 26.1%);
+
+  --font-light: gray(90);
+  --font-dark: gray(12);
+
+  --ui-font: 'Junction', system-ui;
+
+  --rem-size: 18px;
+
+  /* FIXME: real colors */
+  --den-color: blue;
+  --den-accent-color: green;
+
+  --room-color: gray(20);
+  --room-font-color: var(--font-light);
+  --room-accent-color: gray(85);
+}
+
