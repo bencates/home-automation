@@ -75,7 +75,8 @@
     align-items: center;
   }
 
-  .controls :matches(button, a) {
+  .controls button,
+  .controls a {
     background: inherit;
     color: inherit;
     font-size: inherit;
@@ -91,11 +92,6 @@
   }
 
 
-
-  ul {
-    list-style: none;
-    padding: 0;
-  }
 
   li {
     padding: 0 0.6rem;
