@@ -5,12 +5,13 @@ export const plugins = [phoenix]
 
 export function state () {
   return {
-    socketConnected: false
+    $socketConnected: false,
   }
 }
 
 export const mutations = {
-  socketDisconnect: state => state.socketConnected = false,
+  socketConnect: state => state.$socketConnected = true,
+  socketDisconnect: state => state.$socketConnected = false,
 
   patchState (state, patch) {
     function deepPatch (state, patch, key) {

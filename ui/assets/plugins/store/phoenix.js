@@ -18,7 +18,17 @@ export default function phoenix(store) {
   channel.onError(() => store.commit('socketDisconnect'))
 
   channel.join()
-    .receive('ok', serverState => store.replaceState(camelizeKeys(serverState)))
+    .receive('ok', serverState => {
+      const newState = camelizeKeys(serverState)
+
+      // Preserve keys that start with '$'
+      Object.keys(store.state)
+        .filter(k => k.startsWith('$'))
+        .forEach(key => newState[key] = store.state[key])
+
+      store.replaceState(camelizeKeys(newState))
+      store.commit('socketConnect')
+    })
     .receive('timeout', () => console.log('Networking issue. Still waiting...'))
 
   store.$serverDispatch = async (type, payload = {}) => {
