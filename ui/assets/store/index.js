@@ -6,12 +6,17 @@ export const plugins = [phoenix]
 export function state () {
   return {
     $socketConnected: false,
+    $room: false,
   }
 }
 
 export const mutations = {
   socketConnect: state => state.$socketConnected = true,
   socketDisconnect: state => state.$socketConnected = false,
+
+  setRoom (state, { room }) {
+    state.$room = room;
+  },
 
   patchState (state, patch) {
     function deepPatch (state, patch, key) {

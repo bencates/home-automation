@@ -10,6 +10,23 @@
   import { mapState } from 'vuex'
 
   export default {
+    // TODO: find a cleaner way to do this
+    beforeRouteEnter (_to, _from, next) {
+      next(({ $route, $store }) => {
+        $store.commit('setRoom', { room: $route.params.id })
+      })
+    },
+
+    beforeRouteUpdate (_to, _from, next) {
+      this.$store.commit('setRoom', { room: this.$route.params.id })
+      next()
+    },
+
+    beforeRouteLeave (_to, _from, next) {
+      this.$store.commit('setRoom', { room: false })
+      next()
+    },
+
     computed: {
       ...mapState('window', {
         windowBlind (state) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :data-room="$room">
     <button class="show" @click="$refs.theNavbar.show()">
       <font-awesome-icon icon="bars" />
     </button>
@@ -15,8 +15,12 @@
 <script>
   import TheNavbar from '~/components/the-navbar'
 
+  import { mapState } from 'vuex'
+
   export default {
-    components: { TheNavbar }
+    components: { TheNavbar },
+
+    computed: mapState(['$room'])
   }
 </script>
 

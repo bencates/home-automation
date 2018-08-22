@@ -12,12 +12,14 @@
 
   --rem-size: 18px;
 
-  /* FIXME: real colors */
-  --den-color: blue;
-  --den-accent-color: green;
-
   --room-color: gray(20);
   --room-font-color: var(--font-light);
   --room-accent-color: gray(85);
 }
 
+[data-room="den"] {
+  /* FIXME: real colors */
+  --room-color: blue;
+  --room-font-color: var(--font-light);
+  --room-accent-color: green;
+}
