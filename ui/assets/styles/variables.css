@@ -18,8 +18,7 @@
 }
 
 [data-room="den"] {
-  /* FIXME: real colors */
-  --room-color: blue;
-  --room-font-color: var(--font-light);
-  --room-accent-color: green;
+  --room-color: hsl(39deg, 18%, 71%); /* Ikea beige */
+  --room-font-color: var(--font-dark);
+  --room-accent-color: hsl(180.38deg, 100%, 31.18%); /* Couch teal */
 }
