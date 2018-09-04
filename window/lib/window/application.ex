@@ -15,17 +15,10 @@ defmodule Window.Application do
   end
 
   # List all child processes to be supervised
-  def children("host") do
-    [
-      # Starts a worker by calling: Window.Worker.start_link(arg)
-      # {Window.Worker, arg},
-    ]
-  end
-
   def children(_target) do
     [
-      # Starts a worker by calling: Window.Worker.start_link(arg)
-      # {Window.Worker, arg},
+      # Starts a worker by calling: Window.Server.start_link(arg)
+      {Window.Server, []}
     ]
   end
 end
