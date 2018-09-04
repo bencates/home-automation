@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "ui"
+		},
+		{
+			"path": "window"
 		}
 	],
 	"settings": {}
