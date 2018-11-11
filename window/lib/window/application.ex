@@ -18,7 +18,8 @@ defmodule Window.Application do
   def children(_target) do
     [
       # Starts a worker by calling: Window.Server.start_link(arg)
-      {Window.Server, []}
+      {Window.Server, []},
+      {Stepper, Application.get_env(:window, :pins)}
     ]
   end
 end

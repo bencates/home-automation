@@ -22,7 +22,15 @@ config :shoehorn,
 
 config :logger, backends: [RingLogger]
 
-config :window, name: :den_window
+config :window,
+  name: :den_window,
+  pins: [
+    ain1: 19,
+    ain2: 26,
+    bin1: 13,
+    bin2: 6,
+    stby: 5
+  ]
 
 # Import target specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
